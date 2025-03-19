@@ -10,6 +10,7 @@ import { ColorModeSwitcher } from "./color-mode-switcher";
 import { Logo } from "./logo";
 import { Button, buttonVariants } from "./ui/button";
 
+
 interface NavProps {
   items?: {
     title: string;
@@ -21,7 +22,6 @@ interface NavProps {
 
 function SignInSignUpButtons() {
   const app = useStackApp();
-
   return (
     <>
       <Link
@@ -30,6 +30,7 @@ function SignInSignUpButtons() {
       >
         Sign In
       </Link>
+
       <Link
         href={app.urls.signUp}
         className={buttonVariants({ variant: "default" })}
