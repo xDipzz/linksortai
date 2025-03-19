@@ -6,7 +6,7 @@ import { Bookmark, Search, Settings, Users } from "lucide-react";
 
 export default async function IndexPage() {
   return (
-    <>
+    <div className="flex flex-col items-center justify-center text-center">
       <Hero
         capsuleText="AI-Powered Bookmark Management"
         capsuleLink="https://linksorai.com"
@@ -25,13 +25,13 @@ export default async function IndexPage() {
               rel="noreferrer"
               className="underline"
             >
-
             </a>
           </>
         }
       />
 
       <div id="features" />
+
       <FeatureGrid
         title="Why LinkSortAI?"
         subtitle="Smart bookmarking made easy."
@@ -63,6 +63,6 @@ export default async function IndexPage() {
           },
         ]}
       />
-    </>
+    </div>
   );
 }
