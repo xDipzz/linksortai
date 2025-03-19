@@ -9,7 +9,7 @@ export default async function IndexPage() {
     <div className="flex flex-col items-center justify-center text-center">
       <Hero
         capsuleText="AI-Powered Bookmark Management"
-        capsuleLink="https://linksorai.com"
+        capsuleLink="here add to login page"
         title="Organize Your Bookmarks Effortlessly"
         subtitle="LinkSortAI helps you save, categorize, and find bookmarks with ease—powered by AI."
         primaryCtaText="Get Started"

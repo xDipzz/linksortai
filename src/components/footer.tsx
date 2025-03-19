@@ -16,10 +16,10 @@ export function Footer(props: {
   linkedinLink: string;
 }) {
   return (
-    <footer className="border-t">
-      <div className="container flex flex-col items-center justify-between gap-4 py-10 md:h-24 md:flex-row md:py-0">
+    <footer className="border-t text-center">
+      <div className="container flex flex-col items-center justify-start md:justify-center gap-4 py-15 md:h-24 md:flex-row md:py-0 pl-6">
         <div className="flex flex-col items-center gap-4 px-8 md:flex-row md:gap-2 md:px-0">
-          <p className="text-center text-sm leading-loose text-muted-foreground md:text-left">
+          <p className="text-sm leading-loose text-muted-foreground">
             Built with ❤️ for bookmark lovers by{" "}
             <a
               href={props.builtByLink}
@@ -42,7 +42,7 @@ export function Footer(props: {
           </p>
         </div>
 
-        <div className="flex items-center space-x-1">
+        <div className="flex items-center justify-center space-x-3 ml-9">
           {[
             { href: props.twitterLink, icon: TwitterLogoIcon },
             { href: props.linkedinLink, icon: LinkedInLogoIcon },
