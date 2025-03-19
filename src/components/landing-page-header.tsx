@@ -23,21 +23,27 @@ interface NavProps {
 function SignInSignUpButtons() {
   const app = useStackApp();
   return (
-    <>
+    <div className="flex gap-2">
       <Link
         href={app.urls.signIn}
-        className={buttonVariants({ variant: "secondary" })}
+        className={cn(
+          buttonVariants({ variant: "secondary" }),
+          "bg-gray-800 text-white dark:bg-white dark:text-black px-4 py-2 rounded-md shadow-md"
+        )}
       >
         Sign In
       </Link>
 
       <Link
         href={app.urls.signUp}
-        className={buttonVariants({ variant: "default" })}
+        className={cn(
+          buttonVariants({ variant: "default" }),
+          "bg-white text-black dark:bg-gray-800 dark:text-white px-4 py-2 rounded-md shadow-md"
+        )}
       >
         Sign Up
       </Link>
-    </>
+    </div>
   );
 }
 
