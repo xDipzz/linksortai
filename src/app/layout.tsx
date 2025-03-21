@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "sort links with ease",
-  description: "sort ur links with ease",
+  title: "sort bookmark with ease",
+  description: "sort ur bookmarks  with ease",
 };
 
 export default function RootLayout({
