@@ -78,6 +78,32 @@ export default async function IndexPage() {
           },
         ]}
       />
-  </div>
+
+      <div className="w-full max-w-6xl mx-auto py-24 px-4">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl mb-4">Ready to transform your bookmarking experience?</h2>
+          <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+            Join thousands of users who have simplified their digital life with LinkSortAI.
+          </p>
+        </div>
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <a
+            href={stackServerApp.urls.signUp}
+            className="inline-flex items-center justify-center rounded-md bg-blue-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+          >
+            Get Started Now
+          </a>
+          <a
+            href="https://github.com/xDipzz/linksortai"
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center justify-center rounded-md border border-gray-300 bg-white px-6 py-3 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-200 dark:hover:bg-gray-700"
+          >
+            <GitHubLogoIcon className="mr-2 h-5 w-5" />
+            Star on GitHub
+          </a>
+        </div>
+      </div>
+    </div>
   );
 }
