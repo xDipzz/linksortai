@@ -1,7 +1,6 @@
 "use client";
 
 import { cn } from "../../lib/utils";
-import { useStackApp, useUser } from "@stackframe/stack";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { useSelectedLayoutSegment } from "next/navigation";
@@ -9,7 +8,6 @@ import * as React from "react";
 import { ColorModeSwitcher } from "./color-mode-switcher";
 import { Logo } from "./logo";
 import { Button, buttonVariants } from "./ui/button";
-
 
 interface NavProps {
   items?: {
@@ -21,11 +19,10 @@ interface NavProps {
 }
 
 function SignInSignUpButtons() {
-  const app = useStackApp();
   return (
     <div className="flex gap-2">
       <Link
-        href={app.urls.signIn}
+        href="/auth/signin"
         className={cn(
           buttonVariants({ variant: "secondary" }),
           "bg-gray-800 text-white dark:bg-white dark:text-black px-4 py-2 rounded-md shadow-md"
@@ -35,7 +32,7 @@ function SignInSignUpButtons() {
       </Link>
 
       <Link
-        href={app.urls.signUp}
+        href="/auth/signup"
         className={cn(
           buttonVariants({ variant: "default" }),
           "bg-white text-black dark:bg-gray-800 dark:text-white px-4 py-2 rounded-md shadow-md"
@@ -48,9 +45,9 @@ function SignInSignUpButtons() {
 }
 
 function AuthButtonsInner() {
-  const user = useUser();
+  const isAuthenticated = false; 
 
-  if (user) {
+  if (isAuthenticated) {
     return (
       <Link
         href="/dashboard"

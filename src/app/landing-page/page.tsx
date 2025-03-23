@@ -1,6 +1,5 @@
 import { FeatureGrid } from "@/components/features";
 import { Hero } from "@/components/hero";
-import { stackServerApp } from "../../../auth";
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
 import { Bookmark, Search, Settings, Users, Shield, Zap } from "lucide-react";
 
@@ -9,7 +8,7 @@ export default async function IndexPage() {
     <div className="flex flex-col items-center justify-center text-center">
       <Hero
         capsuleText="AI-Powered Bookmark Management"
-        capsuleLink={stackServerApp.urls.signIn}
+        capsuleLink="/auth/signin" // pending to add here too !!
         title={
           <>
             Organize Your Bookmarks <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-violet-600">Effortlessly</span>
@@ -17,7 +16,7 @@ export default async function IndexPage() {
         }
         subtitle="LinkSortAI helps you save, categorize, and find bookmarks with ease—powered by AI that understands what matters to you."
         primaryCtaText="Get Started"
-        primaryCtaLink={stackServerApp.urls.signUp}
+        primaryCtaLink="/auth/signup" // Update to new signup //a
         secondaryCtaText="GitHub"
         secondaryCtaLink="https://github.com/xDipzz/linksortai"
         credits={
@@ -88,7 +87,7 @@ export default async function IndexPage() {
         </div>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <a
-            href={stackServerApp.urls.signUp}
+            href="/auth/signup" // !!!
             className="inline-flex items-center justify-center rounded-md bg-blue-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
           >
             Get Started Now
