@@ -1,5 +1,6 @@
 "use client";
 
+import { SessionProvider } from "next-auth/react";
 import { Footer } from "@/components/footer";
 import { LandingPageHeader } from "@/components/landing-page-header";
 import { useEffect, useState } from "react";
@@ -7,30 +8,32 @@ import { Moon, Sun } from "lucide-react";
 
 export default function Layout(props: { children: React.ReactNode }) {
   return (
-    <ThemeProvider>
-      <div className="flex min-h-screen flex-col bg-gradient-to-b from-white to-gray-50 dark:from-gray-950 dark:to-gray-900">
-        <LandingPageHeader
-          items={[
-            { title: "Home", href: "/" },
-            { title: "Features", href: "/#features" },
-            {
-              title: "GitHub",
-              href: "https://github.com/xDipzz/linksortai",
-              external: true,
-            },
-          ]}
-          rightElement={<ThemeToggle />} // need to add here toggle thing 
-        />
-        <main className="flex-1">{props.children}</main>
-        <Footer
-          builtBy="LinkSortAI by Deepak Mahajan"
-          builtByLink="https://linksorai.com/"
-          githubLink="https://github.com/xDipzz/linksortai"
-          twitterLink="https://twitter.com/linksortai"
-          linkedinLink="https://www.linkedin.com/in/deepak-mahajan-b1181a214/"
-        />
-      </div>
-    </ThemeProvider>
+    <SessionProvider>
+      <ThemeProvider>
+        <div className="flex min-h-screen flex-col bg-gradient-to-b from-white to-gray-50 dark:from-gray-950 dark:to-gray-900">
+          <LandingPageHeader
+            items={[
+              { title: "Home", href: "/" },
+              { title: "Features", href: "/#features" },
+              {
+                title: "GitHub",
+                href: "https://github.com/xDipzz/linksortai",
+                external: true,
+              },
+            ]}
+            rightElement={<ThemeToggle />}
+          />
+          <main className="flex-1">{props.children}</main>
+          <Footer
+            builtBy="LinkSortAI by Deepak Mahajan"
+            builtByLink="https://linksorai.com/"
+            githubLink="https://github.com/xDipzz/linksortai"
+            twitterLink="https://twitter.com/linksortai"
+            linkedinLink="https://www.linkedin.com/in/deepak-mahajan-b1181a214/"
+          />
+        </div>
+      </ThemeProvider>
+    </SessionProvider>
   );
 }
 
@@ -39,10 +42,11 @@ function ThemeProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     setMounted(true);
-    
+
+    // Check for user preference or previously selected theme
     const savedTheme = localStorage.getItem("theme");
     const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    
+
     if (savedTheme === "dark" || (!savedTheme && prefersDark)) {
       document.documentElement.classList.add("dark");
     } else {
@@ -51,6 +55,7 @@ function ThemeProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   if (!mounted) {
+    // Prevent flash of incorrect theme
     return <>{children}</>;
   }
 
@@ -59,15 +64,16 @@ function ThemeProvider({ children }: { children: React.ReactNode }) {
 
 function ThemeToggle() {
   const [isDark, setIsDark] = useState(false);
-  
+
+  // Initialize state when component mounts
   useEffect(() => {
     setIsDark(document.documentElement.classList.contains("dark"));
   }, []);
-  
+
   function toggleTheme() {
     const newTheme = !isDark;
     setIsDark(newTheme);
-    
+
     if (newTheme) {
       document.documentElement.classList.add("dark");
       localStorage.setItem("theme", "dark");
@@ -76,7 +82,7 @@ function ThemeToggle() {
       localStorage.setItem("theme", "light");
     }
   }
-  
+
   return (
     <button
       onClick={toggleTheme}

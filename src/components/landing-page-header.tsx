@@ -8,6 +8,7 @@ import * as React from "react";
 import { ColorModeSwitcher } from "./color-mode-switcher";
 import { Logo } from "./logo";
 import { Button, buttonVariants } from "./ui/button";
+import { useSession, signOut } from "next-auth/react";
 
 interface NavProps {
   items?: {
@@ -30,31 +31,21 @@ function SignInSignUpButtons() {
       >
         Sign In
       </Link>
-
-      <Link
-        href="/auth/signup"
-        className={cn(
-          buttonVariants({ variant: "default" }),
-          "bg-white text-black dark:bg-gray-800 dark:text-white px-4 py-2 rounded-md shadow-md"
-        )}
-      >
-        Sign Up
-      </Link>
     </div>
   );
 }
 
 function AuthButtonsInner() {
-  const isAuthenticated = false; 
+  const { data: session } = useSession();
 
-  if (isAuthenticated) {
+  if (session) {
     return (
-      <Link
-        href="/dashboard"
+      <button
+        onClick={() => signOut()}
         className={buttonVariants({ variant: "default" })}
       >
-        Dashboard
-      </Link>
+        Sign Out
+      </button>
     );
   } else {
     return <SignInSignUpButtons />;
