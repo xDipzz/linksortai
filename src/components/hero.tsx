@@ -1,11 +1,11 @@
-import { buttonVariants } from "./ui/button"; // Corrected import path for button.tsx
-import { cn } from "../../lib/utils"; // Corrected import path for utils.ts
+import { buttonVariants } from "./ui/button"; 
+import { cn } from "../../lib/utils"; 
 import Link from "next/link";
 
 export function Hero(props: {
   capsuleText: string;
   capsuleLink: string;
-  title: string;
+  title: React.ReactNode; 
   subtitle: string;
   credits?: React.ReactNode;
   primaryCtaText: string;
@@ -16,13 +16,13 @@ export function Hero(props: {
   return (
     <section className="space-y-6 py-32 md:py-48 lg:py-52">
       <div className="container flex max-w-[64rem] flex-col items-center gap-4 text-center">
-      <Link
-        href={props.capsuleLink}
-        className="rounded-2xl bg-muted px-4 py-1.5 text-base md:text-lg font-semibold"
-        target="_blank"
+        <Link
+          href={props.capsuleLink}
+          className="rounded-2xl bg-muted px-4 py-1.5 text-base md:text-lg font-semibold"
+          target="_blank"
         >
-        {props.capsuleText}
-      </Link>
+          {props.capsuleText}
+        </Link>
 
         <h1 className="font-heading text-3xl sm:text-5xl lg:text-7xl">
           {props.title}
