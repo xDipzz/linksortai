@@ -1,5 +1,5 @@
-import { FeatureGrid } from "../../components/features"
-import { Hero } from "../../components/hero"
+import { FeatureGrid } from "@/components/features"
+import { Hero } from "@/components/hero"
 import { GitHubLogoIcon } from "@radix-ui/react-icons"
 import { Bookmark, Search, Settings, Users, Shield, Zap } from "lucide-react"
 

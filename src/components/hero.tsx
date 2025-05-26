@@ -1,5 +1,5 @@
 import { buttonVariants } from "./ui/button"; 
-import { cn } from "../../lib/utils"; 
+import { cn } from "@/lib/utils"; 
 import Link from "next/link";
 
 export function Hero(props: {

@@ -1,4 +1,4 @@
-import { cn } from "../../lib/utils";
+import { cn } from "@/lib/utils";
 import Link from "next/link";
 
 export function Logo(props: { className?: string, link?: string }) {
