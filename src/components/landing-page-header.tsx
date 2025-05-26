@@ -5,22 +5,14 @@ import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { useSelectedLayoutSegment } from "next/navigation";
 import * as React from "react";
+import dynamic from "next/dynamic";
 import { ColorModeSwitcher } from "./color-mode-switcher";
 import { Logo } from "./logo";
 import { Button, buttonVariants } from "./ui/button";
-import { useSession, signOut } from "next-auth/react";
 
-interface NavProps {
-  items?: {
-    title: string;
-    href: string;
-    disabled?: boolean;
-    external?: boolean;
-  }[];
-}
-
-function SignInSignUpButtons() {
-  return (
+const AuthButtons = dynamic(() => import("./auth-buttons").then(mod => ({ default: mod.AuthButtons })), {
+  ssr: false,
+  loading: () => (
     <div className="flex gap-2">
       <Link
         href="/auth/signin"
@@ -32,33 +24,19 @@ function SignInSignUpButtons() {
         Sign In
       </Link>
     </div>
-  );
+  )
+});
+
+interface NavProps {
+  items?: {
+    title: string;
+    href: string;
+    disabled?: boolean;
+    external?: boolean;
+  }[];
 }
 
-function AuthButtonsInner() {
-  const { data: session } = useSession();
 
-  if (session) {
-    return (
-      <button
-        onClick={() => signOut()}
-        className={buttonVariants({ variant: "default" })}
-      >
-        Sign Out
-      </button>
-    );
-  } else {
-    return <SignInSignUpButtons />;
-  }
-}
-
-function AuthButtons() {
-  return (
-    <React.Suspense fallback={<SignInSignUpButtons />}>
-      <AuthButtonsInner />
-    </React.Suspense>
-  );
-}
 
 function MobileItems(props: NavProps) {
   return (
