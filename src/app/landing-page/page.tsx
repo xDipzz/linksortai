@@ -12,7 +12,7 @@ export default function IndexPage() {
       <div className="relative z-10">
         <Hero
           capsuleText="AI-Powered Bookmark Management"
-          capsuleLink="/auth/signin"
+          capsuleLink="#features"
           title={
             <>
               Organize Your Bookmarks{" "}
@@ -23,7 +23,7 @@ export default function IndexPage() {
           }
           subtitle="LinkSortAI helps you save, categorize, and find bookmarks with ease—powered by AI that understands what matters to you."
           primaryCtaText="Get Started"
-          primaryCtaLink="/auth/signin"
+          primaryCtaLink="#signup"
           secondaryCtaText="GitHub"
           secondaryCtaLink="https://github.com/xDipzz/linksortai"
           credits={
@@ -100,7 +100,7 @@ export default function IndexPage() {
           </div>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
-              href="/auth/signin"
+              href="#signup"
               className="inline-flex items-center justify-center rounded-md bg-blue-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
             >
               Get Started Now
@@ -114,6 +114,25 @@ export default function IndexPage() {
               <GitHubLogoIcon className="mr-2 h-5 w-5" />
               Star on GitHub
             </a>
+          </div>
+        </div>
+
+        <div id="signup" className="w-full max-w-4xl mx-auto py-24 px-4">
+          <div className="bg-gradient-to-r from-blue-50 to-violet-50 dark:from-blue-950 dark:to-violet-950 rounded-2xl p-8 text-center">
+            <h3 className="text-2xl font-bold mb-4">Ready to Get Started?</h3>
+            <p className="text-gray-600 dark:text-gray-400 mb-6">
+              LinkSortAI is coming soon! Join our waitlist to be the first to know when we launch.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
+              <input
+                type="email"
+                placeholder="Enter your email"
+                className="flex-1 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-600"
+              />
+              <button className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                Join Waitlist
+              </button>
+            </div>
           </div>
         </div>
       </div>
