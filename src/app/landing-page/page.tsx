@@ -1,5 +1,6 @@
 import { FeatureGrid } from "@/components/features"
 import { Hero } from "@/components/hero"
+import { ContactForm } from "@/components/contact-form"
 import { GitHubLogoIcon } from "@radix-ui/react-icons"
 import { Bookmark, Search, Settings, Users, Shield, Zap } from "lucide-react"
 
@@ -123,16 +124,7 @@ export default function IndexPage() {
             <p className="text-gray-600 dark:text-gray-400 mb-6">
               LinkSortAI is coming soon! Join our waitlist to be the first to know when we launch.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="flex-1 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-600"
-              />
-              <button className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                Join Waitlist
-              </button>
-            </div>
+                         <ContactForm />
           </div>
         </div>
       </div>
