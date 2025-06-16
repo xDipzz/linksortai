@@ -4,12 +4,14 @@ export function FeatureGridItem(props: {
     description: string;
   }) {
     return (
-      <div className="relative overflow-hidden rounded-lg border bg-background p-2">
-        <div className="flex h-[180px] flex-col rounded-md p-6 gap-4">
-          {props.icon}
+      <div className="relative overflow-hidden rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 p-5 feature-card">
+        <div className="flex flex-col gap-3">
+          <div className="flex-shrink-0">
+            {props.icon}
+          </div>
           <div className="space-y-2">
-            <h3 className="font-bold">{props.title}</h3>
-            <p className="text-sm text-muted-foreground">{props.description}</p>
+            <h3 className="text-lg font-bold text-white">{props.title}</h3>
+            <p className="text-sm text-gray-300 leading-relaxed">{props.description}</p>
           </div>
         </div>
       </div>
@@ -26,20 +28,17 @@ export function FeatureGridItem(props: {
     }[];
   }) {
     return (
-      <section
-        id="features"
-        className="container space-y-6 py-8 md:py-12 lg:py-24"
-      >
-        <div className="mx-auto flex max-w-6xl flex-col items-center space-y-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-semibold">
+      <section className="space-y-8">
+        <div className="text-center space-y-3">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold gradient-text">
             {props.title}
           </h2>
-          <p className="max-w-[85%] text-muted-foreground sm:text-lg">
+          <p className="max-w-2xl mx-auto text-base text-gray-300">
             {props.subtitle}
           </p>
         </div>
   
-        <div className="mx-auto grid justify-center gap-4 sm:grid-cols-2 md:max-w-5xl md:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {props.items.map((item, index) => (
             <FeatureGridItem key={index} {...item} />
           ))}

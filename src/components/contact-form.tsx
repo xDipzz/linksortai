@@ -6,35 +6,44 @@ import { Button } from "./ui/button";
 export function ContactForm() {
   const [email, setEmail] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Simple form handling - could be connected to a backend later
+    setIsLoading(true);
+    
+    // Simulate API call
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    
     console.log("Email submitted:", email);
     setIsSubmitted(true);
     setEmail("");
+    setIsLoading(false);
     
     // Reset after 3 seconds
     setTimeout(() => setIsSubmitted(false), 3000);
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
+    <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4 justify-center max-w-lg mx-auto">
       <input
         type="email"
         placeholder="Enter your email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         required
-        className="flex-1 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:text-white"
+        disabled={isLoading}
+        className="flex-1 px-6 py-4 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent text-white placeholder-gray-300 transition-all"
       />
-      <Button
+      <button
         type="submit"
-        className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-        disabled={isSubmitted}
+        className={`btn-primary px-8 py-4 rounded-xl font-semibold text-white shadow-lg border-0 ${
+          isLoading ? "loading-pulse" : ""
+        }`}
+        disabled={isLoading || isSubmitted}
       >
-        {isSubmitted ? "Thanks!" : "Join Waitlist"}
-      </Button>
+        {isSubmitted ? "Thanks!" : isLoading ? "Submitting..." : "Join Waitlist"}
+      </button>
     </form>
   );
 } 
