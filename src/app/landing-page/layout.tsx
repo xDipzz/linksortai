@@ -18,11 +18,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       />
       <main className="flex-1">{children}</main>
       <Footer
-        builtBy="LinkSortAI by Deepak Mahajan"
-        builtByLink="https://linksorai.com/"
+        builtBy="LinkSortAI"
+        builtByLink="/"
         githubLink="https://github.com/xDipzz/linksortai"
         twitterLink="https://twitter.com/linksortai"
-        linkedinLink="https://www.linkedin.com/in/deepak-mahajan-b1181a214/"
+        linkedinLink=""
       />
     </div>
   )

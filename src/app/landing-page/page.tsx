@@ -42,15 +42,8 @@ export default function IndexPage() {
             secondaryCtaLink="https://github.com/xDipzz/linksortai"
             credits={
               <>
-                Crafted with <span className="animate-pulse">❤️</span> by{" "}
-                <a
-                  href="https://linksorai.com"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="font-medium text-blue-400 hover:text-blue-300 transition-colors underline"
-                >
-                  Dipz
-                </a>
+                Crafted with <span className="animate-pulse">❤️</span> by {" "}
+                <span className="font-medium text-blue-400">LinkSortAI Team</span>
               </>
             }
           />
