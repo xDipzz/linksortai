@@ -4,7 +4,7 @@ AI-Powered Bookmark Management
 
 LinkSortAI helps you save, categorize, and find bookmarks with ease—powered by AI that understands what matters to you.
 
-![LinkSortAI Preview](./public/img1.jpeg)
+![LinkSortAI Preview](./public/img1.png)
 
 ## Getting Started
 
