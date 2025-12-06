@@ -13,6 +13,8 @@ import {
   Sparkles,
   Menu,
   X,
+  Zap,
+  LayoutGrid,
 } from "lucide-react";
 import { toast } from "sonner";
 import * as Storage from "@/lib/storage";
@@ -206,16 +208,24 @@ export default function Dashboard() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">
         <FloatingBackground />
-        <div className="glass-card p-8 text-center animate-pulse-glow">
-          <div className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-muted-foreground text-lg">Loading your bookmarks...</p>
+        <div className="glass-card p-12 text-center relative">
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-secondary/10 rounded-[20px]" />
+          <div className="relative">
+            <div className="w-20 h-20 mx-auto mb-6 relative">
+              <div className="absolute inset-0 border-4 border-primary/20 rounded-full" />
+              <div className="absolute inset-0 border-4 border-primary border-t-transparent rounded-full animate-spin" />
+              <BookmarkIcon className="absolute inset-0 m-auto w-8 h-8 text-primary" />
+            </div>
+            <p className="text-lg text-foreground font-medium mb-2">Loading your bookmarks</p>
+            <p className="text-sm text-muted-foreground">Organizing your digital library...</p>
+          </div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background page-transition">
       <FloatingBackground />
 
       <div className="relative z-10">
@@ -226,36 +236,43 @@ export default function Dashboard() {
             <div className="flex items-center gap-4">
               <button
                 onClick={() => setShowMobileSidebar(true)}
-                className="md:hidden p-2 rounded-lg hover:bg-muted transition-colors"
+                className="md:hidden p-2.5 rounded-xl hover:bg-muted transition-colors"
               >
                 <Menu className="w-5 h-5 text-foreground" />
               </button>
 
-              <div className="flex items-center gap-2">
-                <BookmarkIcon className="w-8 h-8 text-primary animate-pulse" />
-                <h1 className="text-xl md:text-2xl font-bold gradient-text neon-text">
-                  LinkSortAI
-                </h1>
-                <div className="hidden md:flex items-center gap-2 ml-4 px-3 py-1 bg-primary/10 rounded-full border border-primary/20">
-                  <Sparkles className="w-4 h-4 text-primary" />
-                  <span className="text-sm text-primary font-medium">No Login Required</span>
+              <div className="flex items-center gap-3">
+                <div className="relative">
+                  <div className="absolute inset-0 bg-primary/30 blur-xl rounded-full" />
+                  <div className="relative p-2.5 rounded-xl bg-gradient-to-br from-primary to-primary/80">
+                    <BookmarkIcon className="w-6 h-6 text-primary-foreground" />
+                  </div>
+                </div>
+                <div>
+                  <h1 className="text-xl md:text-2xl font-bold gradient-text tracking-tight">
+                    LinkSortAI
+                  </h1>
+                </div>
+                <div className="hidden lg:flex items-center gap-2 ml-2 px-3 py-1.5 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-full border border-primary/20">
+                  <Zap className="w-3.5 h-3.5 text-primary" />
+                  <span className="text-xs text-primary font-semibold tracking-wide">No Login Required</span>
                 </div>
               </div>
 
               {/* Desktop Search */}
-              <div className="hidden md:block relative ml-4">
-                <Search className="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+              <div className="hidden md:block relative ml-6">
+                <Search className="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground" />
                 <input
                   type="text"
                   placeholder="Search bookmarks..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="form-input pl-10 pr-10 py-2 w-80"
+                  className="form-input pl-11 pr-10 py-2.5 w-80 text-sm"
                 />
                 {searchQuery && (
                   <button
                     onClick={() => setSearchQuery("")}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 p-1 rounded-lg hover:bg-muted text-muted-foreground hover:text-foreground transition-colors"
                   >
                     <X className="w-4 h-4" />
                   </button>
@@ -269,7 +286,7 @@ export default function Dashboard() {
                 variant="ghost"
                 size="sm"
                 onClick={() => setShowStats(!showStats)}
-                className="hidden sm:flex"
+                className={`hidden sm:flex ${showStats ? 'bg-primary/10 text-primary' : ''}`}
               >
                 <BarChart3 className="w-4 h-4 mr-2" />
                 Stats
@@ -291,6 +308,7 @@ export default function Dashboard() {
                   setEditingBookmark(null);
                   setShowAddBookmark(true);
                 }}
+                className="shadow-lg shadow-primary/20"
               >
                 <Plus className="w-4 h-4 mr-2" />
                 <span className="hidden sm:inline">Add Bookmark</span>
@@ -298,18 +316,18 @@ export default function Dashboard() {
 
               {/* Settings Menu */}
               <div className="relative group">
-                <button className="p-2 rounded-lg hover:bg-muted transition-colors">
+                <button className="p-2.5 rounded-xl hover:bg-muted transition-colors">
                   <Settings className="w-5 h-5 text-muted-foreground" />
                 </button>
                 <div className="absolute right-0 top-full mt-2 w-48 glass-card p-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                   <button
                     onClick={handleExport}
-                    className="w-full flex items-center gap-2 px-3 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground rounded-lg transition-colors"
+                    className="w-full flex items-center gap-3 px-3 py-2.5 text-sm text-muted-foreground hover:bg-muted hover:text-foreground rounded-xl transition-colors"
                   >
                     <Download className="w-4 h-4" />
                     Export Data
                   </button>
-                  <label className="w-full flex items-center gap-2 px-3 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground rounded-lg transition-colors cursor-pointer">
+                  <label className="w-full flex items-center gap-3 px-3 py-2.5 text-sm text-muted-foreground hover:bg-muted hover:text-foreground rounded-xl transition-colors cursor-pointer">
                     <Upload className="w-4 h-4" />
                     Import Data
                     <input
@@ -331,46 +349,48 @@ export default function Dashboard() {
         {/* Filters Panel */}
         {showFilters && (
           <div className="glass-card mx-4 mt-4 p-4 animate-slide-up">
-            <div className="flex items-center gap-4 flex-wrap">
-              <div className="flex items-center gap-2">
-                <span className="text-sm text-muted-foreground">View:</span>
-                <button
-                  onClick={() => {
-                    setViewMode("grid");
-                    Storage.updateSettings({ viewMode: "grid" });
-                  }}
-                  className={`p-2 rounded-lg transition-colors ${
-                    viewMode === "grid"
-                      ? "bg-primary/20 text-primary"
-                      : "text-muted-foreground hover:bg-muted"
-                  }`}
-                >
-                  <Grid className="w-4 h-4" />
-                </button>
-                <button
-                  onClick={() => {
-                    setViewMode("list");
-                    Storage.updateSettings({ viewMode: "list" });
-                  }}
-                  className={`p-2 rounded-lg transition-colors ${
-                    viewMode === "list"
-                      ? "bg-primary/20 text-primary"
-                      : "text-muted-foreground hover:bg-muted"
-                  }`}
-                >
-                  <List className="w-4 h-4" />
-                </button>
+            <div className="flex items-center gap-6 flex-wrap">
+              <div className="flex items-center gap-3">
+                <span className="text-sm text-muted-foreground font-medium">View:</span>
+                <div className="flex items-center p-1 rounded-xl bg-muted/50">
+                  <button
+                    onClick={() => {
+                      setViewMode("grid");
+                      Storage.updateSettings({ viewMode: "grid" });
+                    }}
+                    className={`p-2 rounded-lg transition-all ${
+                      viewMode === "grid"
+                        ? "bg-primary text-primary-foreground shadow-lg"
+                        : "text-muted-foreground hover:text-foreground"
+                    }`}
+                  >
+                    <LayoutGrid className="w-4 h-4" />
+                  </button>
+                  <button
+                    onClick={() => {
+                      setViewMode("list");
+                      Storage.updateSettings({ viewMode: "list" });
+                    }}
+                    className={`p-2 rounded-lg transition-all ${
+                      viewMode === "list"
+                        ? "bg-primary text-primary-foreground shadow-lg"
+                        : "text-muted-foreground hover:text-foreground"
+                    }`}
+                  >
+                    <List className="w-4 h-4" />
+                  </button>
+                </div>
               </div>
 
               {selectedCategory && selectedCategory !== "favorites" && (
                 <div className="flex items-center gap-2">
-                  <span className="text-sm text-muted-foreground">Filtered by:</span>
-                  <span className="px-2 py-1 bg-primary/10 text-primary rounded text-sm">
+                  <span className="text-sm text-muted-foreground font-medium">Filtered by:</span>
+                  <span className="px-3 py-1.5 bg-primary/10 text-primary rounded-full text-sm font-medium border border-primary/20">
                     {categories.find((c) => c.id === selectedCategory)?.name}
                   </span>
                   <button
                     onClick={() => setSelectedCategory(null)}
-                    className="text-muted-foreground hover:text-foreground"
+                    className="p-1.5 rounded-lg hover:bg-muted text-muted-foreground hover:text-foreground transition-colors"
                   >
                     <X className="w-4 h-4" />
                   </button>
@@ -414,18 +434,18 @@ export default function Dashboard() {
             <div className="md:hidden mb-4">
               <div className="glass-card p-4">
                 <div className="relative">
-                  <Search className="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+                  <Search className="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground" />
                   <input
                     type="text"
                     placeholder="Search bookmarks..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="form-input pl-10 pr-10 w-full"
+                    className="form-input pl-11 pr-10 w-full"
                   />
                   {searchQuery && (
                     <button
                       onClick={() => setSearchQuery("")}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 p-1 rounded-lg hover:bg-muted text-muted-foreground hover:text-foreground"
                     >
                       <X className="w-4 h-4" />
                     </button>
@@ -435,50 +455,61 @@ export default function Dashboard() {
             </div>
 
             {/* Welcome Card */}
-            <GlowCard className="mb-6" variant="highlight">
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center shrink-0">
-                  <BookmarkIcon className="w-6 h-6 text-primary-foreground" />
+            <div className="glass-card p-6 mb-6 relative overflow-hidden group">
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5" />
+              <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 group-hover:bg-primary/15 transition-colors" />
+              
+              <div className="relative flex items-center gap-5">
+                <div className="relative">
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary to-secondary blur-xl opacity-50" />
+                  <div className="relative w-14 h-14 rounded-2xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-lg">
+                    <BookmarkIcon className="w-7 h-7 text-primary-foreground" />
+                  </div>
                 </div>
                 <div>
-                  <h2 className="text-xl font-semibold text-foreground">
+                  <h2 className="text-xl font-bold text-foreground mb-1">
                     Welcome to LinkSortAI!
                   </h2>
                   <p className="text-muted-foreground">
-                    You have {bookmarks.length} bookmarks organized across{" "}
-                    {categories.length} categories
+                    You have <span className="text-primary font-semibold">{bookmarks.length}</span> bookmarks organized across{" "}
+                    <span className="text-secondary font-semibold">{categories.length}</span> categories
                   </p>
                 </div>
               </div>
-            </GlowCard>
+            </div>
 
             {/* Bookmarks */}
             {filteredBookmarks.length === 0 ? (
-              <GlowCard className="text-center py-12" variant="subtle">
-                <BookmarkIcon className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-                <h3 className="text-lg font-medium text-foreground mb-2">
-                  {searchQuery || selectedCategory
-                    ? "No bookmarks found"
-                    : "No bookmarks yet"}
-                </h3>
-                <p className="text-muted-foreground mb-4">
-                  {searchQuery || selectedCategory
-                    ? "Try adjusting your search or filter"
-                    : "Start by adding your first bookmark"}
-                </p>
-                {!searchQuery && !selectedCategory && (
-                  <Button onClick={() => setShowAddBookmark(true)}>
-                    <Plus className="w-4 h-4 mr-2" />
-                    Add Your First Bookmark
-                  </Button>
-                )}
-              </GlowCard>
+              <div className="glass-card text-center py-16 px-8 relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5" />
+                <div className="relative">
+                  <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-muted/50 flex items-center justify-center">
+                    <BookmarkIcon className="w-10 h-10 text-muted-foreground" />
+                  </div>
+                  <h3 className="text-xl font-bold text-foreground mb-2">
+                    {searchQuery || selectedCategory
+                      ? "No bookmarks found"
+                      : "No bookmarks yet"}
+                  </h3>
+                  <p className="text-muted-foreground mb-6 max-w-sm mx-auto">
+                    {searchQuery || selectedCategory
+                      ? "Try adjusting your search or filter criteria"
+                      : "Start building your bookmark collection by adding your first link"}
+                  </p>
+                  {!searchQuery && !selectedCategory && (
+                    <Button onClick={() => setShowAddBookmark(true)} className="shadow-lg shadow-primary/20">
+                      <Plus className="w-4 h-4 mr-2" />
+                      Add Your First Bookmark
+                    </Button>
+                  )}
+                </div>
+              </div>
             ) : (
               <div
                 className={
                   viewMode === "grid"
-                    ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
-                    : "space-y-3"
+                    ? "grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 stagger-children"
+                    : "space-y-3 stagger-children"
                 }
               >
                 {filteredBookmarks.map((bookmark) => (
