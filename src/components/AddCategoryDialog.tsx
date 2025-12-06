@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
-import { X, Loader2 } from "lucide-react";
+import { X, Loader2, Palette, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 interface AddCategoryDialogProps {
   open: boolean;
@@ -10,16 +11,18 @@ interface AddCategoryDialogProps {
 }
 
 const PRESET_COLORS = [
-  "#3B82F6", // Blue
-  "#EC4899", // Pink
-  "#10B981", // Green
-  "#F59E0B", // Amber
-  "#8B5CF6", // Purple
-  "#EF4444", // Red
-  "#06B6D4", // Cyan
-  "#F97316", // Orange
-  "#84CC16", // Lime
-  "#A855F7", // Violet
+  { color: "#3B82F6", name: "Blue" },
+  { color: "#EC4899", name: "Pink" },
+  { color: "#10B981", name: "Green" },
+  { color: "#F59E0B", name: "Amber" },
+  { color: "#8B5CF6", name: "Purple" },
+  { color: "#EF4444", name: "Red" },
+  { color: "#06B6D4", name: "Cyan" },
+  { color: "#F97316", name: "Orange" },
+  { color: "#84CC16", name: "Lime" },
+  { color: "#A855F7", name: "Violet" },
+  { color: "#14B8A6", name: "Teal" },
+  { color: "#E11D48", name: "Rose" },
 ];
 
 export function AddCategoryDialog({
@@ -30,14 +33,14 @@ export function AddCategoryDialog({
 }: AddCategoryDialogProps) {
   const [form, setForm] = useState({
     name: "",
-    color: PRESET_COLORS[0],
+    color: PRESET_COLORS[0].color,
   });
 
   useEffect(() => {
     if (open) {
       setForm({
         name: "",
-        color: PRESET_COLORS[Math.floor(Math.random() * PRESET_COLORS.length)],
+        color: PRESET_COLORS[Math.floor(Math.random() * PRESET_COLORS.length)].color,
       });
     }
   }, [open]);
@@ -51,26 +54,43 @@ export function AddCategoryDialog({
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 bg-background/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <div className="glass-card w-full max-w-md animate-slide-up">
+    <div className="fixed inset-0 bg-background/80 backdrop-blur-xl z-50 flex items-center justify-center p-4">
+      <div 
+        className="glass-card w-full max-w-md animate-slide-up"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Gradient top border with selected color */}
+        <div 
+          className="h-1 w-full transition-colors duration-300"
+          style={{ background: `linear-gradient(90deg, ${form.color}, ${form.color}80, ${form.color})` }}
+        />
+        
         <div className="p-6">
           {/* Header */}
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-xl font-semibold text-foreground">
-              Add New Category
-            </h2>
+            <div className="flex items-center gap-3">
+              <div 
+                className="p-2.5 rounded-xl transition-colors duration-300"
+                style={{ background: `${form.color}20` }}
+              >
+                <Palette className="w-5 h-5" style={{ color: form.color }} />
+              </div>
+              <h2 className="text-xl font-bold text-foreground">
+                Add New Category
+              </h2>
+            </div>
             <button
               onClick={onClose}
-              className="p-2 rounded-lg hover:bg-muted transition-colors"
+              className="p-2.5 rounded-xl hover:bg-muted transition-colors"
             >
               <X className="w-5 h-5 text-muted-foreground" />
             </button>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-5">
             {/* Name */}
             <div>
-              <label className="block text-sm font-medium text-foreground mb-2">
+              <label className="block text-sm font-semibold text-foreground mb-2">
                 Category Name <span className="text-destructive">*</span>
               </label>
               <input
@@ -80,50 +100,62 @@ export function AddCategoryDialog({
                 placeholder="e.g., Work, Personal, Research"
                 className="form-input"
                 required
+                autoFocus
               />
             </div>
 
             {/* Color */}
             <div>
-              <label className="block text-sm font-medium text-foreground mb-2">
+              <label className="block text-sm font-semibold text-foreground mb-3">
                 Color
               </label>
-              <div className="flex flex-wrap gap-2">
-                {PRESET_COLORS.map((color) => (
+              <div className="grid grid-cols-6 gap-3">
+                {PRESET_COLORS.map(({ color, name }) => (
                   <button
                     key={color}
                     type="button"
                     onClick={() => setForm({ ...form, color })}
-                    className="w-8 h-8 rounded-lg transition-transform hover:scale-110"
+                    className={cn(
+                      "w-10 h-10 rounded-xl transition-all duration-300 relative group",
+                      form.color === color && "scale-110"
+                    )}
                     style={{
                       backgroundColor: color,
-                      boxShadow:
-                        form.color === color
-                          ? `0 0 0 2px hsl(var(--background)), 0 0 0 4px ${color}`
-                          : "none",
+                      boxShadow: form.color === color ? `0 0 0 2px hsl(var(--background)), 0 0 0 4px ${color}` : undefined,
                     }}
-                  />
+                    title={name}
+                  >
+                    {form.color === color && (
+                      <Check className="w-4 h-4 text-white absolute inset-0 m-auto drop-shadow-lg" />
+                    )}
+                    <span className="sr-only">{name}</span>
+                  </button>
                 ))}
               </div>
             </div>
 
             {/* Preview */}
-            <div className="p-4 rounded-lg bg-muted/50">
-              <p className="text-sm text-muted-foreground mb-2">Preview:</p>
-              <span
-                className="category-badge"
-                style={{
-                  background: `${form.color}20`,
-                  color: form.color,
-                  borderColor: `${form.color}40`,
-                }}
-              >
+            <div className="p-5 rounded-xl bg-muted/30 border border-border/30">
+              <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3">Preview</p>
+              <div className="flex items-center gap-3">
                 <span
-                  className="w-2 h-2 rounded-full"
-                  style={{ background: form.color }}
-                />
-                {form.name || "Category Name"}
-              </span>
+                  className="category-badge"
+                  style={{
+                    background: `${form.color}15`,
+                    color: form.color,
+                    borderColor: `${form.color}30`,
+                  }}
+                >
+                  <span
+                    className="w-2 h-2 rounded-full"
+                    style={{ background: form.color }}
+                  />
+                  {form.name || "Category Name"}
+                </span>
+                <span className="text-sm text-muted-foreground">
+                  • 0 bookmarks
+                </span>
+              </div>
             </div>
 
             {/* Actions */}
@@ -141,6 +173,10 @@ export function AddCategoryDialog({
                 type="submit"
                 className="flex-1"
                 disabled={submitting || !form.name}
+                style={{
+                  background: form.color,
+                  boxShadow: `0 10px 30px -10px ${form.color}60`,
+                }}
               >
                 {submitting ? (
                   <>
